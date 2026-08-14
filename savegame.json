@@ -1,0 +1,17 @@
+{
+    "stats": {
+        "name": "tmorri1267",
+        "hp": 100,
+        "max_hp": 100,
+        "damage": 1
+    },
+    "inventory": {
+        "gold": 5,
+        "potions": 0,
+        "super_potions": 0,
+        "hyper_potions": 0,
+        "rainbow_potions": 0,
+        "gear": "None",
+        "weapon": "None"
+    }
+}
