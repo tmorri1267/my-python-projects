@@ -281,6 +281,7 @@ def start_new_game():
     # Immediately saves game
     save_game()
     time.sleep(0.5)
+    main()
 
 
 # Welcomes the player
@@ -303,14 +304,25 @@ def bootup():
         # If the player chooses to load their game, then load their save data. Else, start a new game.
         if "load" in choice:
             success = load_game()
+
             if success:
-                print(f"Welcome back, {player_stats['name']}!")
-                if not success:
-                    start_new_game()
-            break
+                break
+            
+            if not success:
+                start_new_game()
+                break
+
         elif "new" in choice:
-            start_new_game()
-            break
+            action = input(f"{bold}\nAre you sure you want to start a {light_magenta}new game{white}?{reset}\nThis will erase your current progress and start a fresh instance.{reset} ({light_green}Yes{white}/{light_red}No{reset}): ")
+
+            if "yes" in action:
+                start_new_game()
+                break
+            elif "no" in action:
+                bootup()
+            else:
+                print(f"\nPlease type an option in the menu. ({light_green}Perhaps you made a typo?{reset})")
+                time.sleep(2)
         else:
             print(f"\nPlease type any of the options above. ({green}Perhaps you made a typo?{reset})")
             time.sleep(2)
@@ -1965,6 +1977,18 @@ def battle():
                 print(f"{bold}Your{reset} HP: {green}{player_stats["hp"]}/{player_stats["max_hp"]}{reset}")
                 print("---------------------\n")
                 time.sleep(2)
+
+                if player_stats["hp"] <= 0:
+                    typewriter(f"\nOh no! You {red}ran out{reset} of health!\n")
+                    time.sleep(0.5)
+                    typewriter(f"\nYou have been {red}defeated{reset} by {bold}{current_enemy["name"]}{reset}!\n")
+                    time.sleep(1)
+                    typewriter(f"\nA {bold}{light_magenta}wizard{reset} spots you...\n")
+                    time.sleep(1)
+                    typewriter(f"The {bold}{light_magenta}wizard{reset} uses its magic wand to {light_green}heal{reset} you and teleports you back home.\n")
+                    player_stats["hp"] = player_stats["max_hp"]
+                    time.sleep(3)
+                    main()
         else:
             # Tells the player that their action is invalid; nothing will be done.
             print(f"\nOops! This action is {red}invalid{reset}! You stand frozen.\n")
@@ -2448,7 +2472,7 @@ def main():
             time.sleep(1)
             typewriter(f"If you defeat the {light_red}{bold}BOSS{reset}, then you beat the game!\n")
             time.sleep(1)
-            typewriter(f"Now, off you go, player, and {underline}have fun{reset}! :D\n")
+            typewriter(f"Now, off you go, {bold}{player_stats['name']}{reset}, and {underline}have fun{reset}! :D\n")
             time.sleep(1)
 
         
@@ -2461,9 +2485,23 @@ def main():
 
         # If they choose to save and quit, save the game and thank the player for playing.
         elif "quit" in action:
-            typewriter("\nThanks for playing my text-based RPG game! Hope to see you again soon!")
-            time.sleep(1)
-            break
+            
+            action = input(f"{bold}\nDo you want to {green}save{white} your game before quitting?{reset} ({light_green}Yes{white}/{light_red}No{reset}): ")
+
+            if "yes" in action:
+                save_game()
+                time.sleep(0.5)
+                typewriter("\nThanks for playing my text-based RPG game! Hope to see you again soon!\n")
+                time.sleep(0.5)
+                break
+            elif "no" in action:
+                typewriter("\nThanks for playing my text-based RPG game! Hope to see you again soon!")
+                time.sleep(1)
+                break
+            else:
+                print(f"\nPlease type an option in the menu. ({light_green}Perhaps you made a typo?{reset})")
+                time.sleep(2)
+
 
         elif "save" in action:
             typewriter(f"\n{green}Saving{reset} your game...")
@@ -2472,8 +2510,18 @@ def main():
             time.sleep(0.5)
 
         # If they choose to start a new game, then wipe out current save data and start a new game.
-        elif "new game" in action:
-            start_new_game()
+        elif "new" in action:
+
+            action = input(f"{bold}\nAre you sure you want to start a {light_magenta}new game{white}?{reset}\nThis will erase your current progress and start a fresh instance.{reset} ({light_green}Yes{white}/{light_red}No{reset}): ")
+
+            if "yes" in action:
+                start_new_game()
+            elif "no" in action:
+                main()
+            else:
+                print(f"\nPlease type an option in the menu. ({light_green}Perhaps you made a typo?{reset})")
+                time.sleep(2)
+
 
 
         # If they type "version": display game version
