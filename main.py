@@ -274,7 +274,7 @@ def handle_menu_screen(mouse_pos, events_list):
         text_rect = text_surf.get_rect(center=(SCREEN_WIDTH // 2, 225))
         screen.blit(text_surf, text_rect)
 
-        text_surf = TEXT_FONT.render("Game Version: 0.6 Beta", True, LIGHT_GREEN)
+        text_surf = TEXT_FONT.render("Game Version: 1.0", True, LIGHT_GREEN)
         text_rect = text_surf.get_rect(center=(SCREEN_WIDTH // 2, 550))
         screen.blit(text_surf, text_rect)
 
