@@ -241,7 +241,7 @@ enemy1 = Enemy("Enemy 1", random.randint(100, 300), 150)
 enemy2 = Enemy("Enemy 2", random.randint(100, 300), 150)
 enemy3 = Enemy("Enemy 3", random.randint(100, 300), 150)
 timer1 = Timer(355, 275, "Starting in", WHITE, 5)
-timer2 = Timer(355, 25, "Time left", WHITE, 1)
+timer2 = Timer(355, 25, "Time left", WHITE, 60)
 
 # Game State Variable
 # States: "INTRO", "COUNTDOWN", "PLAYING", "END", "GAME OVER"
